@@ -3,3 +3,4 @@ _site/**
 
 # ignore drafts
 _drafts/**
+!_drafts/_post

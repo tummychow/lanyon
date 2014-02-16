@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# usage: _post NAMEOFPOST
+# assumes you have a git repository in _drafts, and a super-repository in
+# jekyll's source dir
+# the named file will be moved from _drafts to _posts (with a timestamped name)
+# and the change will be committed to both repositories
+
+# the name has a leading underscore so that jekyll ignores it without having to
+# exclude it in _config.yml
+
+datedname=$(date +"%Y-%m-%d-")$1
+
+# interrogate the draft repo - must be clean
+if [[ ! -z $(git status --porcelain) ]]; then
+    echo "Draft repository is not clean"
+    exit 1
+
+# interrogate the jekyll super repo - must also be clean
+elif [[ ! -z $(cd .. ; git status --porcelain) ]]; then
+    echo "Jekyll repository is not clean"
+    exit 1
+fi
+
+# move the post file to the _posts directory in the jekyll repo
+mv $1 ../_posts/$datedname
+
+# commit a deletion for the file in the drafts repo
+git rm -q $1
+git commit -m "Posted $1 (_post)"
+
+# rise up into the jekyll repo
+cd ..
+
+# commit the new post in the jekyll repo
+git add _posts/$datedname
+git commit -m "Posted $1 (_post)"
