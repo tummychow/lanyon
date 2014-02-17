@@ -17,3 +17,17 @@ layout: default
     {% endfor %}
   </div>
 {% endif %}
+
+<div class="pagination">
+  {% if page.previous.url %}
+    <a class="pagination-item older" href="{{ site.baseurl }}{{ page.previous.url }}">Previous</a>
+  {% else %}
+    <span class="pagination-item older">Previous</span>
+  {% endif %}
+  <a class="pagination-item" href="{{ site.baseurl }}/postlist/">Post List</a>
+  {% if page.next.url %}
+    <a class="pagination-item newer" href="{{ site.baseurl }}{{ page.next.url }}">Next</a>
+  {% else %}
+    <span class="pagination-item newer">Next</span>
+  {% endif %}
+</div>
