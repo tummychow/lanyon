@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+pageprio: 3
 ---
 
 <p class="message">
