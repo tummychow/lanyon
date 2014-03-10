@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # usage: _post NAMEOFPOST
 # assumes you have a git repository in _drafts, and a super-repository in
@@ -12,12 +12,12 @@
 datedname=$(date +"%Y-%m-%d-")$1
 
 # interrogate the draft repo - must be clean
-if [[ ! -z $(git status --porcelain) ]]; then
+if [ ! -z $(git status --porcelain) ]; then
     echo "Draft repository is not clean"
     exit 1
 
 # interrogate the jekyll super repo - must also be clean
-elif [[ ! -z $(cd .. ; git status --porcelain) ]]; then
+elif [ ! -z $(cd .. ; git status --porcelain) ]; then
     echo "Jekyll repository is not clean"
     exit 1
 fi
